@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 from datetime import datetime, timedelta
 import pandas as pd
 import pandahouse as ph
@@ -12,7 +6,7 @@ from airflow.decorators import dag, task
 connection = {
     'host': 'https://clickhouse.lab.karpov.courses',
     'user': 'student',
-    'password': 'dpo_python_2020',
+    'password': 'dpo_python_20',
     'database': 'simulator_20250820'
 }
 
@@ -20,7 +14,7 @@ connection = {
 connection_test = {
     'host': 'https://clickhouse.lab.karpov.courses',
     'user': 'student-rw',
-    'password': '656e2b0c9c',
+    'password': '656e2b0',
     'database': 'test'
 }
 
