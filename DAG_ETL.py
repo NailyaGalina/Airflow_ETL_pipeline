@@ -6,7 +6,7 @@ from airflow.decorators import dag, task
 connection = {
     'host': 'https://clickhouse.lab.karpov.courses',
     'user': 'student',
-    'password': 'dpo_python_20',
+    'password': '****',
     'database': 'simulator_20250820'
 }
 
@@ -14,7 +14,7 @@ connection = {
 connection_test = {
     'host': 'https://clickhouse.lab.karpov.courses',
     'user': 'student-rw',
-    'password': '656e2b0',
+    'password': '****',
     'database': 'test'
 }
 
