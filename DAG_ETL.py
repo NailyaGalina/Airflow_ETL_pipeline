@@ -3,6 +3,7 @@ import pandas as pd
 import pandahouse as ph
 from airflow.decorators import dag, task
 
+# Параметры подключения к БД
 connection = {
     'host': 'https://clickhouse.lab.karpov.courses',
     'user': 'student',
@@ -87,6 +88,7 @@ def n_galina():
         messages_received_1 = ph.read_clickhouse(query, connection=connection)
         return messages_received_1
   
+    # Объединяем таблицы
     @task()
     def merge_data(feed, messages_sent_1, messages_received_1):
      
@@ -103,6 +105,7 @@ def n_galina():
         ).fillna(0)
         return merged_1
 
+    # Создаем срез по операционной системе
     @task()
     def transform_os(merged_1):
         os_metrics = merged_1[['event_date', 'os', 'views', 'likes', 'messages_received',
@@ -111,6 +114,7 @@ def n_galina():
         os_metrics.insert(1, 'dimension', 'os')
         return os_metrics
 
+    # Создаем срез по полу
     @task()
     def transform_gender(merged_1):
         gender_metrics = merged_1[['event_date', 'gender', 'views', 'likes', 'messages_received',
@@ -119,6 +123,7 @@ def n_galina():
         gender_metrics.insert(1, 'dimension', 'gender')
         return gender_metrics
 
+    # Создаем срез по возрасту
     @task()
     def transform_age(merged_1):
         age_metrics = merged_1[['event_date', 'age', 'views', 'likes', 'messages_received',
@@ -127,6 +132,7 @@ def n_galina():
         age_metrics.insert(1, 'dimension', 'age')
         return age_metrics
 
+    # Объединяем все срезы в одну таблицу
     @task()
     def load_to_clickhouse(gender_metrics, age_metrics, os_metrics):
         final_df_table = pd.concat([gender_metrics, age_metrics, os_metrics])
